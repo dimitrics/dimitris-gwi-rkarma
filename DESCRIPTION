@@ -1,0 +1,20 @@
+Package: karma
+Version: 0.5-1
+Date: 2016-05-20
+Title: Complementary tools for automated time-series machine learning.
+Authors@R: c(person("Dimitrios", "Tziotis", role = c("aut", "cre"),
+		     email = "dimitrios.tziotis@gmail.com"))
+Author: Dimitrios Tziotis [aut, cre]
+Maintainer: Dimitrios Tziotis <dimitrios.tziotis@gmail.com>
+Depends:
+    R (>= 3.1.0)
+Suggests:
+    forecast
+Description: This package provides algorithms and tools for improved automatic
+    model selection and validation in univariate time-series forecasting via
+    autoregressive integrated moving average models. It includes functions that act
+    as wrappers to Arima() and forecast() from package 'forecast'.
+License: GPL (>= 2)
+URL: https://www.r-project.org
+BugReports: https://pkgname.bugtracker.url
+RoxygenNote: 5.0.1
