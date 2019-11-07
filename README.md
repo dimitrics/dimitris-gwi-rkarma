@@ -116,6 +116,6 @@ karma.cv(kmodels[[2]]$fit_obj)     # validate 2nd model
 
 __Or you can follow the examples on this script:__
 
-https://github.com/snarf-snarf/karma/blob/master/karma_demo.r
+https://github.com/dimitris-gwi/rkarma/blob/master/karma_demo.r
 
 Use help() on any function to see a more detailed documentation.
