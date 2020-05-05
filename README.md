@@ -49,7 +49,7 @@ library(devtools)
 
 __Then you install this package:__
 
-install_github("dimitris-gwi/rkarma")
+install_github("dimitrics/rkarma")
 
 <br />
 
