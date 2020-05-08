@@ -49,7 +49,7 @@ library(devtools)
 
 __Then you install this package:__
 
-install_github("dimitrics/rkarma")
+install_github("dimitrics/karma")
 
 <br />
 
@@ -116,6 +116,6 @@ karma.cv(kmodels[[2]]$fit_obj)     # validate 2nd model
 
 __Or you can follow the examples on this script:__
 
-https://github.com/dimitrics/rkarma/blob/master/karma_demo.r
+https://github.com/dimitrics/karma/blob/master/karma_demo.r
 
 Use help() on any function to see a more detailed documentation.
