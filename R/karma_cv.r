@@ -62,7 +62,7 @@ karma.cv <- function(karma0, y = c(), test_pct = "auto", test_type = "auto", log
     fixed = karma0$fixed_flag
     log = karma0$log   #warning('karma.cv: "log" parameter is read from karma.fit object; ignoring function argument.')
     karma0$seasonal_terms = karma0$model_seasonal
-  }else if( class(karma0)[1] == "ARIMA" ){
+  }else if (class(karma0)[1] == "forecast_ARIMA" | class(karma0)[1] == "ARIMA"){
     karma0 = karma.cast(karma0)
   }else if( class(karma0)[1] == "Arima" ){
     stop("karma.cv: Please use model of type 'karma.fit' or 'ARIMA'")
