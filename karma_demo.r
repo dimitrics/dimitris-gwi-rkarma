@@ -105,7 +105,7 @@ kfit = auto.boxjen(y)   #default: method = "greedy" (Box-jenkins mode | in-sampl
 karma.cv(kfit)    
 plot(forecast(kfit)) #forecast
 
-kfit = auto.boxjen(y, method = "karma", metric = "AICc", optimiser = "semi-stochastic")   #method = "karma": combinatorial ARMA model selection (forward selection-type)
+kfit = auto.boxjen(y, method = "karma", metric = "AICc", optimiser = "semi-stochastic")   #method = "karma": combinatorial ARMA model selection (forward selection-type) [NPH-ARIMA (NP-Hard ARIMA)]
 karma.cv(kfit)    
 plot(forecast(kfit)) #forecast
 
@@ -113,7 +113,7 @@ kfit = auto.boxjen(y, method = "greedy-karma", optimiser = "semi-stochastic", me
 karma.cv(kfit)      
 plot(forecast(kfit)) #forecast
 
-kfit = auto.boxjen(y, method = "karma", optimiser = "stochastic", metric = "MAPE", cv = "in", max_rep = 1)   #Stochastic search - uses out-of-sample MAPE to validate every potential model
+kfit = auto.boxjen(y, method = "karma", optimiser = "stochastic", metric = "MAPE", cv = "in", max_rep = 1)   #Stochastic search - uses out-of-sample MAPE to validate every potential model [SBJ-ARIMA (Stochastic Box-Jenkins)]
 karma.cv(kfit)
 plot(forecast(kfit)) #forecast
 
@@ -123,17 +123,22 @@ plot(forecast(kfit)) #forecast
 
 #Good overall: (slower convergence)
 sfit = auto.karma(y = y, method = "local-descent", cv = "in", stdout = T ); karma.cv(sfit) #sometimes better but generally slower convergence
-sfit = auto.karma(y = y, method = "local-descent", cv = "out", stdout = T); karma.cv(sfit)
+sfit = auto.karma(y = y, method = "local-descent", cv = "out", stdout = T); karma.cv(sfit) #LD-ARIMA (Local Descent ARIMA)
 
-sfit = auto.karma(y = y, method = "random-walk", cv = "in", stdout = T, max_iter = 10); karma.cv(sfit)
-sfit = auto.karma(y = y, method = "random-walk", cv = "out", stdout = T, max_iter = 10 ); karma.cv(sfit)
+sfit = auto.karma(y = y, method = "random-walk", cv = "in", stdout = T, max_iter = 10); karma.cv(sfit) 
+sfit = auto.karma(y = y, method = "random-walk", cv = "out", stdout = T, max_iter = 10 ); karma.cv(sfit) #RW-ARIMA (Random Walk ARIMA)
 
 #Best overall: (faster convergence)
-sfit = auto.karma(y = y, method = "markov-selection", cv = "in", stdout = F ); karma.cv(sfit)
-sfit = auto.karma(y = y, method = "markov-selection", cv = "out", stdout = F ); karma.cv(sfit)
+sfit = auto.karma(y = y, method = "markov-selection", cv = "in", stdout = F ); karma.cv(sfit) 
+sfit = auto.karma(y = y, method = "markov-selection", cv = "out", stdout = F ); karma.cv(sfit) #MS-ARIMA (Markov Selection ARIMA) [default option]
+
+#Non-parametric / Non-asymptotic training option:
+sfit = auto.karma(y = y, method = "markov-selection", metric = "MAPE" ); karma.cv(sfit) #NMS-ARIMA (Nonparametric Markov Selection ARIMA)
 
 #More examples:
 library(fpp2)
+karma.cv(auto.karma(JohnsonJohnson))  #MS-ARIMA
+karma.cv(auto.karma(JohnsonJohnson, metric = "MAPE"))  #NMS-ARIMA
 karma.cv(auto.karma(a10, test_type="auto", test_pct=-2), test_type="auto", test_pct=-2)
 karma.cv(auto.karma(ausbeer, test_type="auto", test_pct=-5), test_type="auto", test_pct=-5)
 karma.cv(auto.karma(beer, test_type="auto", test_pct=-1), test_type="auto", test_pct=-1)
@@ -147,7 +152,7 @@ karma.cv(auto.karma(h02, test_type="auto", test_pct=-2), test_type="auto", test_
 # karma.ensemble():  [creates ensemble of weak learners and aggregates their prediction on unseen data]
 
 #Ex1:
-kensemble = karma.ensemble(y = JohnsonJohnson, nsamples = 10, std_smoothing = 1)   #create ensemble of Box-jenkins models...
+kensemble = karma.ensemble(y = JohnsonJohnson, nsamples = 10, std_smoothing = 1)   #create ensemble of Box-jenkins models... [SSF (Stacked Stochastic Forecast)]
 print(kensemble$unique_model_count)   #number of unique models in the ensemble
 karma.cv(kensemble)   #model validation and out-of-sample MAPE
 #karma.cv(kensemble$kfit_list[[1]])    #mape of the first model in the ensemble
